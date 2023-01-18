@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloController {
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String index() {
-        return "Greetings! Springboot is working!";
+        return "Hello! Springboot is working!";
     }
 }
