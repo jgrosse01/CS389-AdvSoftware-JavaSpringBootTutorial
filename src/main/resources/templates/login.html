@@ -5,8 +5,8 @@
     <title>Login page</title>
 </head>
 <body>
-<h1 style="margin: 0 auto;">Login</h1>
-<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
+<h1 style="text-align: center;">Login</h1>
+<form th:action="@{/login}" th:object="${loginForm}" method="post">
   <input type="text" th:field="*{username}" placeholder="Username"/><br/>
   <input type="password" th:field="*{password}" placeholder="Password"/><br/>
   <button type="submit">Login</button>
