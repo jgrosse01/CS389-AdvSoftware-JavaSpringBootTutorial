@@ -1,6 +1,6 @@
 package edu.carroll.cs389;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -17,8 +17,15 @@ public class HelloControllerTest {
 
     @Test
     public void indexTest() throws Exception {
-        mockMvc.perform(get("/hello")).andDo(print())
+        mockMvc.perform(get("/")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Hello! Springboot is working!")));
+                .andExpect(content().string(containsString("Hello, Student!")));
+    }
+
+    public void indexWithInputTest() throws Exception {
+        final String name = "You";
+        mockMvc.perform(get("/")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Hello ," + name + "!")));
     }
 }
