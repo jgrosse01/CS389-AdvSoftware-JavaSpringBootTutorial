@@ -24,7 +24,7 @@ public class HelloControllerTest {
 
     public void indexWithInputTest() throws Exception {
         final String name = "You";
-        mockMvc.perform(get("/")).andDo(print())
+        mockMvc.perform(get("/").param("name", name)).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Hello ," + name + "!")));
     }
