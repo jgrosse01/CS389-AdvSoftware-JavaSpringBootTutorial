@@ -1,5 +1,6 @@
 package edu.carroll.cs389.web.controller;
 
+import edu.carroll.cs389.service.LoginService;
 import edu.carroll.cs389.web.form.LoginForm;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LoginController {
-    // NOTE: in the tutorial it is specifically noted that if anything of this sort is used in an application our professor will hunt us down.
-    // I wouldn't put it past him and I do not intend to ever use any method like this for authentication.
-    private static final String validUser = "cs389user";
-    private static final String validPass = "supersecret";
+    private final LoginService loginService;
+
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
 
     @GetMapping("/login")
     public String loginGet(Model model) {
@@ -30,11 +32,8 @@ public class LoginController {
         if (result.hasErrors()) {
             return "login";
         }
-        // Username does not have to case match, password is exact
-        // NOTE: another interjection from the professor to similar affect as the last stating that password validation
-        // should never be done by string equality. this is for the purpose of example
-        if (!(validUser.equalsIgnoreCase(loginForm.getUsername()) &&
-                validPass.equals(loginForm.getPassword()))) {
+
+        if (!loginService.validateUser(loginForm)) {
             result.addError(new ObjectError("globalError", "Username and password do not match any known users."));
             return "login";
         }
