@@ -12,6 +12,14 @@ public class LoginForm {
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
+    public LoginForm() {}
+
+    public LoginForm(String username, String password) {
+        // no hashing because users will be providing unhashed passwords to the form
+        this.username = username;
+        this.password = password;
+    }
+
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }

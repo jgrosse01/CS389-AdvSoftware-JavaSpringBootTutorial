@@ -24,6 +24,13 @@ public class Login {
     @Column(name = "password", nullable = false)
     private String hashedPassword;
 
+    public Login(){}
+
+    public Login(String username, String rawPassword) {
+        this.username = username;
+        setRawPassword(rawPassword);
+    }
+
     public Integer getId() {
         return id;
     }
@@ -46,6 +53,12 @@ public class Login {
 
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
+    }
+
+    public void setRawPassword(String rawPassword) {
+        // Mentioned elsewhere; but, this method should never be done in production software
+        // (or any software for that matter)
+        this.hashedPassword = Integer.toString(rawPassword.hashCode());
     }
 
     private static final String EOL = System.lineSeparator();
