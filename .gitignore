@@ -62,3 +62,6 @@ hs_err_pid*
 
 # H2 database files
 /demoDb*
+
+# Log files
+logs/
